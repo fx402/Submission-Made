@@ -19,6 +19,15 @@
         <entry key="..\:/bangkit/GithubGilang/app/src/main/res/layout/nav_header_main.xml" value="0.1484375" />
         <entry key="..\:/bangkit/GithubGilang/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
         <entry key="..\:/bangkit/GithubGilang/app/src/main/res/menu/main.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/core/src/main/res/drawable/drawable.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/core/src/main/res/drawable/ic_user.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/core/src/main/res/layout/item_user.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/core/src/main/res/layout/layout.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/favorite/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/favorite/src/main/res/drawable/layout.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/favorite/src/main/res/layout/error_fragment.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/favorite/src/main/res/layout/fragment_favorite.xml" value="0.1" />
+        <entry key="..\:/bangkit/GithubGilang/favorite/src/main/res/layout/layout.xml" value="0.1" />
       </map>
     </option>
   </component>

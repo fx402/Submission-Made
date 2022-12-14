@@ -13,8 +13,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gilang.githubgilang.R
-import com.gilang.githubgilang.core.data.Resource
-import com.gilang.githubgilang.core.ui.UserAdapter
+import com.gilang.core.data.Resource
+import com.gilang.core.ui.UserAdapter
 import com.gilang.githubgilang.databinding.FragmentFavoriteBinding
 import com.gilang.githubgilang.databinding.FragmentFollowBinding
 import com.gilang.githubgilang.databinding.FragmentHomeBinding

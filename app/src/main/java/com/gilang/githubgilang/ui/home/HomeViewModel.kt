@@ -1,9 +1,9 @@
 package com.gilang.githubgilang.ui.home
 
 import androidx.lifecycle.*
-import com.gilang.githubgilang.core.data.Resource
-import com.gilang.githubgilang.domain.model.User
-import com.gilang.githubgilang.domain.usecase.UserUseCase
+import com.gilang.core.data.Resource
+import com.gilang.core.domain.model.User
+import com.gilang.core.domain.usecase.UserUseCase
 
 class HomeViewModel(val userUseCase: UserUseCase) : ViewModel() {
 

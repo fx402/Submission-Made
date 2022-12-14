@@ -18,4 +18,5 @@
     <string name="favorite_added">Favorite Added</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

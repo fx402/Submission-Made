@@ -1,9 +1,9 @@
 package com.gilang.githubgilang
 
 import android.app.Application
-import com.gilang.githubgilang.core.di.databaseModule
-import com.gilang.githubgilang.core.di.networkModule
-import com.gilang.githubgilang.core.di.repositoryModule
+import com.gilang.core.di.databaseModule
+import com.gilang.core.di.networkModule
+import com.gilang.core.di.repositoryModule
 import com.gilang.githubgilang.di.useCaseModule
 import com.gilang.githubgilang.di.viewModelModule
 import org.koin.android.ext.koin.androidContext

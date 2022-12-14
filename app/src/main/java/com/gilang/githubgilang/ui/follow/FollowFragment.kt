@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gilang.githubgilang.R
-import com.gilang.githubgilang.core.data.Resource
-import com.gilang.githubgilang.core.ui.UserAdapter
+import com.gilang.core.data.Resource
+import com.gilang.core.ui.UserAdapter
 import com.gilang.githubgilang.databinding.FragmentFavoriteBinding
 import com.gilang.githubgilang.databinding.FragmentFollowBinding
 import com.gilang.githubgilang.databinding.FragmentHomeBinding
@@ -37,7 +37,7 @@ class FollowFragment : Fragment(), ShowStateFragment {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         followBinding = FragmentFollowBinding.inflate(layoutInflater, container, false)
         return followBinding.root
     }

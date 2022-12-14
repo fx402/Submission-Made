@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.gilang.githubgilang.R
-import com.gilang.githubgilang.core.data.Resource
+import com.gilang.core.data.Resource
 import com.gilang.githubgilang.databinding.FragmentDetailBinding
-import com.gilang.githubgilang.domain.model.User
+import com.gilang.core.domain.model.User
 import com.gilang.githubgilang.ui.follow.FollowFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
