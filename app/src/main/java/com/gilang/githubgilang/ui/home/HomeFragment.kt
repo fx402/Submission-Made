@@ -21,12 +21,11 @@ import com.gilang.githubgilang.databinding.FragmentHomeBinding
 import com.gilang.githubgilang.utils.ShowStateFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Suppress("DEPRECATION")
 class HomeFragment : Fragment(), ShowStateFragment {
     private lateinit var homeBinding: FragmentHomeBinding
     private lateinit var homeAdapter: UserAdapter
     private val homeViewModel: HomeViewModel by viewModel()
-    private lateinit var menuItem: MenuItem
-    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,19 +33,18 @@ class HomeFragment : Fragment(), ShowStateFragment {
         savedInstanceState: Bundle?
     ): View {
         val actionBar = (activity as AppCompatActivity).supportActionBar
-//        actionBar?.title = getString(R.string.home)
-        homeBinding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        actionBar?.title = resources.getString(R.string.menu_home)
+        homeBinding = FragmentHomeBinding.inflate(layoutInflater,container, false)
         return homeBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        homeBinding.errorLayout.emptyText.text = getString(R.string.not_found)
 
-        homeAdapter = UserAdapter(arrayListOf()) { username, iv ->
+        homeAdapter = UserAdapter(arrayListOf()){username, imageView ->
             findNavController().navigate(
                 HomeFragmentDirections.actionNavHomeToDetailFragment(username),
-                FragmentNavigatorExtras(iv to username)
+                FragmentNavigatorExtras(imageView to username)
             )
         }
 
@@ -56,24 +54,22 @@ class HomeFragment : Fragment(), ShowStateFragment {
         }
 
         homeBinding.rvUser.visibility = View.VISIBLE
-        resources
 
         observeData()
     }
 
     private fun observeData() {
         homeViewModel.users.observe(viewLifecycleOwner) {
-            if (it != null) {
-                when (it) {
+            if (it != null){
+                when (it){
                     is Resource.Success -> {
-                        onSuccessState(homeBinding)
-
+                        onSuccessState(homeBinding = homeBinding)
                         it.data?.apply {
                             homeAdapter.setList(this)
                         }
                     }
                     is Resource.Error -> {
-                        onErrorState(homeBinding, message = it.message)
+                        onErrorState(homeBinding = homeBinding, message = null)
                     }
                     is Resource.Loading -> {
                         onLoadingState(homeBinding)
@@ -81,6 +77,35 @@ class HomeFragment : Fragment(), ShowStateFragment {
                 }
             }
         }
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        val menuItem = menu.findItem(R.id.action_search)
+        val mSearchView = MenuItemCompat.getActionView(menuItem)as SearchView
+        mSearchView.setIconifiedByDefault(true)
+
+        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                homeViewModel.setSearch(query.toString())
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                homeViewModel.setSearch(newText.toString())
+                return true
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onSuccessState(
@@ -91,11 +116,10 @@ class HomeFragment : Fragment(), ShowStateFragment {
         homeBinding?.apply {
             errorLayout.errorFragment.visibility = View.GONE
             pgBar.visibility = View.GONE
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                 pgBar.setProgress(100, false)
             }
             rvUser.visibility = View.VISIBLE
-            resources
         }
     }
 
@@ -104,11 +128,12 @@ class HomeFragment : Fragment(), ShowStateFragment {
         followBinding: FragmentFollowBinding?,
         favoriteBinding: FragmentFavoriteBinding?
     ) {
+
         homeBinding?.apply {
             errorLayout.errorFragment.visibility = View.GONE
             pgBar.visibility = View.VISIBLE
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                pgBar.setProgress(100, true)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                pgBar.setProgress(100, false)
             }
             rvUser.visibility = View.GONE
         }
@@ -121,40 +146,12 @@ class HomeFragment : Fragment(), ShowStateFragment {
         message: String?
     ) {
         homeBinding?.apply {
-            errorLayout.apply {
-                errorFragment.visibility = View.VISIBLE
-                pgBar.visibility = View.GONE
-
-            rvUser.visibility = View.VISIBLE
+            errorLayout.errorFragment.visibility = View.VISIBLE
+            pgBar.visibility = View.GONE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                pgBar.setProgress(100, false)
             }
+            rvUser.visibility = View.GONE
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main,menu)
-        menuItem = menu.findItem(R.id.action_search)
-        searchView = MenuItemCompat.getActionView(menuItem) as SearchView
-        searchView.setIconifiedByDefault(true)
-
-        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-        searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                homeViewModel.setSearch(query = query.toString())
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                homeViewModel.setSearch(query = newText.toString())
-                return true
-            }
-        })
-        super.onCreateOptionsMenu(menu, inflater)
     }
 }

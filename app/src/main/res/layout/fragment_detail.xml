@@ -35,7 +35,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_baseline_favorite_24"
             app:backgroundTint="#FDFDFD"
-            app:rippleColor="#ED4444"
             android:contentDescription="Favorite Button" />
 
         <TextView
@@ -68,6 +67,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,15 +79,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="16dp"
-                weight=""
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textSize="16sp"
                 android:gravity="center"
-                android:text='@{String.valueOf(data.followers+ " Followers")}' />
+                android:text='@{String.valueOf(data.followers + " Followers")}' />
 
             <TextView
                 android:id="@+id/tv_frame_following"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
                 android:text='@{String.valueOf(data.following+ " Following")}' />

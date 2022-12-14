@@ -27,7 +27,7 @@ data class ListUserResponse (
     @field:SerializedName("public_repos")
     val publicRepos: Int?,
 
-    @field:SerializedName("follower")
+    @field:SerializedName("followers")
     val follower: Int?,
 
     @field:SerializedName("following")
