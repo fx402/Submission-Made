@@ -7,6 +7,8 @@ import com.gilang.core.data.source.local.room.UserDatabase
 import com.gilang.core.data.source.remote.RemoteDataSource
 import com.gilang.core.data.source.remote.network.ApiService
 import com.gilang.core.domain.repository.IUserRepository
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -22,10 +24,13 @@ val databaseModule = module {
         get<UserDatabase>().userDao()
     }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("gilang".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             UserDatabase::class.java,"User_database.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory).build()
     }
 }
 
