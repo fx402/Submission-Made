@@ -23,7 +23,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("DEPRECATION")
 class HomeFragment : Fragment(), ShowStateFragment {
-    private lateinit var homeBinding: FragmentHomeBinding
+    private var _homeBinding: FragmentHomeBinding? = null
+    private val homeBinding get() = _homeBinding!!
     private lateinit var homeAdapter: UserAdapter
     private val homeViewModel: HomeViewModel by viewModel()
 
@@ -34,8 +35,13 @@ class HomeFragment : Fragment(), ShowStateFragment {
     ): View {
         val actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar?.title = resources.getString(R.string.menu_home)
-        homeBinding = FragmentHomeBinding.inflate(layoutInflater,container, false)
+        _homeBinding = FragmentHomeBinding.inflate(layoutInflater,container, false)
         return homeBinding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _homeBinding  = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
